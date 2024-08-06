@@ -2,9 +2,9 @@ Flask==2.3.2
 flask-cors==3.0.10
 fastapi==0.95.1
 uvicorn==0.18.2
-numpy>=1.24.2
+numpy
 librosa==0.10.0
-opencv-python==4.10.0.82
+opencv-python
 matplotlib==3.7.1
 onnxruntime==1.18.0
 onnx==1.16.1
