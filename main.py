@@ -2,7 +2,6 @@ from fastapi import FastAPI, File, UploadFile
 from fastapi.responses import JSONResponse
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-import tensorflow as tf
 import numpy as np
 import librosa
 import tempfile
@@ -12,7 +11,10 @@ import matplotlib
 matplotlib.use('Agg')  # Use the 'Agg' backend for non-interactive plots
 import matplotlib.pyplot as plt
 # Load the model
-model = tf.keras.models.load_model('./model.h5')
+
+import onnx
+import onnxruntime as ort
+session = ort.InferenceSession('model.onnx')
 
 # Initialize FastAPI and Flask apps
 app = FastAPI()
@@ -81,7 +83,9 @@ def predict():
     img_array = tf.keras.preprocessing.image.img_to_array(img)
     img_array = np.expand_dims(img_array, axis=0)  # Create batch dimension
     img_array = img_array / 255.0  # Normalize to [0,1]
-    predictions = model.predict(img_array)
+    # predictions = model.predict(img_array)
+    predictions = session.run(img_array)
+
     predicted_class = np.argmax(predictions, axis=1)
     confidence_score = np.max(predictions, axis=1)
 
