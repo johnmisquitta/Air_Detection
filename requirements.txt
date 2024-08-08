@@ -4,6 +4,7 @@ pydub==0.25.1
 uvicorn==0.29.0
 opencv-python==4.10.0.82
 Librosa==0.10.1
+fastapi
 pydub==0.25.1
 scipy==1.13.0
 matplotlib==3.8.4
